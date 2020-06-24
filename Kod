@@ -1,0 +1,51 @@
+/*
+* @file Practic_RIAZ.cpp
+* @autor Рязанцев Д.А, гр. 515б
+* @date 24.06.20
+* @brief Практическая работа
+*
+* Проекция точки на плоскость
+*/
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+#include <math.h>
+int calc(int dot[3],int plane[4],int proj[3]);
+void output(int proj[3]);
+
+int main()
+{
+	int dot[3],plane[4],proj[3];
+	setlocale(LC_ALL, "Rus");
+	printf("Введите координаты точки\n M(X,Y,Z)\n X=");
+	scanf("%d", &dot[0]);
+	printf("М(%d,0,0)\n Y=", dot[0]);
+	scanf("%d", &dot[1]);
+	printf("М(%d,%d,0)\n Z=", dot[0], dot[1]);
+	scanf("%d", &dot[2]);
+	printf("М(%d,%d,%d)\n Введите уравнение плоскости в виде aX+bY+cZ+d=0\n a=", dot[0], dot[1], dot[2]);
+	scanf("%d", &plane[0]);
+	printf("%dX+bY+cZ+d=0\n b=", plane[0]);
+	scanf("%d", &plane[1]);
+	printf("%dX%+dY+cZ+d=0\n c=", plane[0], plane[1]);
+	scanf("%d", &plane[2]);
+
+	printf("%dX%+dY%+dZ+d=0\n d=", plane[0], plane[1], plane[2]);
+	scanf("%d", &plane[3]);
+	printf("%dX%+dY%+dZ%+d=0\n", plane[0], plane[1], plane[2], plane[3]);
+	calc(dot,plane,proj);
+	output(proj);
+}   
+int calc(int dot[3], int plane[4],int proj[3])
+{
+	int t;
+	t = -(((plane[0] * dot[0]) + (plane[1] * dot[1]) + (plane[2] * dot[2]) + plane[3]) / ((plane[0] * plane[0]) + (plane[1] * plane[1]) + (plane[2] * plane[2])));
+	proj[0] = (plane[0] * t) + dot[0];
+	proj[1] = (plane[1] * t) + dot[1];
+	proj[2] = (plane[2] * t) + dot[2];
+	return proj[3];
+}
+void output(int proj[3])
+{
+		printf(" Точка-проекция М1(%d,%d,%d)", proj[0],proj[1],proj[2]);
+}
